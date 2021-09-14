@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
@@ -33,13 +35,11 @@ class _SearchPageState extends State<SearchPage> {
   List _news = [];
 
   Future<void> searchRestaurants(String query) async {
-    final response = await widget.dio.get(
-      'http://hn.algolia.com/api/v1/search?query=test',
-      queryParameters: {
-        'q': query,
-      },
+    final Response response = await widget.dio.get(
+      'http://hn.algolia.com/api/v1/search?query=$query',
     );
-    print(response);
+    var responseMap = jsonDecode(response.toString());
+    print(responseMap);
   }
 
   @override
