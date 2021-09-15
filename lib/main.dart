@@ -32,17 +32,21 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  List _news = [];
+  var news;
 
   Future<void> searchRestaurants(String query) async {
     final Response response = await widget.dio.get(
       'http://hn.algolia.com/api/v1/search?query=$query',
     );
-    setState(() {
-      _news = response.data('hits');
-    });
     // var responseMap = jsonDecode(response.toString());
+    setState(() {
+      news = jsonDecode(response.toString());
+    });
     // print(responseMap);
+    // setState(() {
+    //   _news = responseMap['hits'];
+    // });
+    print('News issssssssssssssssssssssssssssss : $news');
   }
 
   @override
@@ -62,19 +66,17 @@ class _SearchPageState extends State<SearchPage> {
             SearchForm(
               onSearch: searchRestaurants,
             ),
-            _news == null
-                ? Text('No results to display')
-                : Expanded(
-                    child: ListView(
-                      children: _news.map((news) {
-                        return ListTile(
-                          title: Text(news['hits']['title']),
-                          subtitle: Text(news['hits']['author']),
-                          trailing: Text(news['hits']['num_comments']),
-                        );
-                      }).toList(),
-                    ),
-                  )
+            Expanded(
+              child: news == null
+                  ? Text("nothing to show")
+                  : SingleChildScrollView(
+                    child: Column(
+                        children: [
+                          Text(news['hits'][0]['title'].toString()),
+                        ],
+                      ),
+                  ),
+            )
           ],
         ),
       ),
