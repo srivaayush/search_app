@@ -38,8 +38,11 @@ class _SearchPageState extends State<SearchPage> {
     final Response response = await widget.dio.get(
       'http://hn.algolia.com/api/v1/search?query=$query',
     );
-    var responseMap = jsonDecode(response.toString());
-    print(responseMap);
+    setState(() {
+      _news = response.data('hits');
+    });
+    // var responseMap = jsonDecode(response.toString());
+    // print(responseMap);
   }
 
   @override
