@@ -1,0 +1,21 @@
+Build a flutter app to search hacker news.
+You will be building an app using the HN Search API that lets users search for hacker news
+posts and view details of each post.
+● Home screen
+○ Search field on the top
+○ A list of search results below the search field
+○ Entering a query in the search field triggers the search results API:
+
+■ E.g. GET http://hn.algolia.com/api/v1/search?query=test
+○ Upon receiving results, populate the list of search results below
+● Post detail screen
+○ Upon clicking a search result, take the user to the post detail screen
+○ Using objectID obtained from search results, call the Get item API to retrieve
+post details
+■ E.g. GET http://hn.algolia.com/api/v1/items/12701272
+○ On the detail screen, the following should be displayed
+■ Title
+■ Points
+■ List of all comments (“children” field)
+Note: The API is public and does not need any API keys. Documentation is available at
+https://hn.algolia.com/api
